@@ -70,7 +70,11 @@ bool CameraCalibration::calibration(
     }
 
     // TODO: construct the P matrix (so P * m = 0).
+
+    // arr will contain the values of the P matrix in a one-dimensional array. The length of this array is 2*n*12
     std::vector<double> arr;
+
+    // Points P, u, and v.
     vec3 pt3;
     vec2 pt2;
 
@@ -107,8 +111,7 @@ bool CameraCalibration::calibration(
         arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
     }
 
-    // Create Matrix M
-
+    // Create Matrix P
     const int m = 2 * points_3d.size();
     const int n = 12;
 
@@ -118,6 +121,32 @@ bool CameraCalibration::calibration(
     // TODO: solve for M (the whole projection matrix, i.e., M = K * [R, t]) using SVD decomposition.
     //   Optional: you can check if your M is correct by applying M on the 3D points. If correct, the projected point
     //             should be very close to your input images points.
+    Matrix<double> U(m, m, 0.0);   // initialized with 0s
+    Matrix<double> S(m, n, 0.0);   // initialized with 0s
+    Matrix<double> V(n, n, 0.0);   // initialized with 0s
+
+    // Single Value Decomposition
+    svd_decompose(P, U, S, V);
+
+    // TODO: Remove checks
+    // Check 1: U is orthogonal, so U * U^T must be identity
+    std::cout << "U*U^T: \n" << U * transpose(U) << std::endl;
+    // Check 2: V is orthogonal, so V * V^T must be identity
+    std::cout << "V*V^T: \n" << V * transpose(V) << std::endl;
+    // Check 3: S must be a diagonal matrix
+    std::cout << "S: \n" << S << std::endl;
+    // Check 4: according to the definition, A = U * S * V^T
+    std::cout << "M - U * S * V^T: \n" << P - U * S * transpose(V) << std::endl;
+
+    // Define a 5 by 5 square matrix and compute its inverse.
+    Matrix<double> B(12, 12, arr.data());    // Here I use part of the above array to initialize B
+    // Compute its inverse
+    Matrix<double> invB(12, 12);
+    inverse(B, invB);
+    // Let's check if the inverse is correct
+    std::cout << "B * invB: \n" << B * invB << std::endl;
+
+
 
     // TODO: extract intrinsic parameters from M.
 
@@ -162,9 +191,9 @@ bool CameraCalibration::calibration(
     //Matrix<double> A(m, n, array.data());    // 'array.data()' returns a pointer to the array.
     //std::cout << "M: \n" << A << std::endl;
 
-    Matrix<double> U(m, m, 0.0);   // initialized with 0s
-    Matrix<double> S(m, n, 0.0);   // initialized with 0s
-    Matrix<double> V(n, n, 0.0);   // initialized with 0s
+    //Matrix<double> U(m, m, 0.0);   // initialized with 0s
+    //Matrix<double> S(m, n, 0.0);   // initialized with 0s
+    //Matrix<double> V(n, n, 0.0);   // initialized with 0s
 
     // Compute the SVD decomposition of A
     //svd_decompose(A, U, S, V);
@@ -184,9 +213,9 @@ bool CameraCalibration::calibration(
     //std::cout << "M - U * S * V^T: \n" << A - U * S * transpose(V) << std::endl;
 
     // Define a 5 by 5 square matrix and compute its inverse.
-    Matrix<double> B(5, 5, array.data());    // Here I use part of the above array to initialize B
+    //Matrix<double> B(5, 5, array.data());    // Here I use part of the above array to initialize B
     // Compute its inverse
-    Matrix<double> invB(5, 5);
+    //Matrix<double> invB(5, 5);
     inverse(B, invB);
     // Let's check if the inverse is correct
     std::cout << "B * invB: \n" << B * invB << std::endl;
