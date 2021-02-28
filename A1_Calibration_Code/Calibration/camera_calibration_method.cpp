@@ -59,13 +59,17 @@ bool CameraCalibration::calibration(
 
     // TODO: check if input is valid (e.g., number of correspondences >= 6, sizes of 2D/3D points must match)
     // DV: DONE
+
     if (points_3d.size() < 6) {
+        // Less than 6 points
         std::cout << "Input Validation FAIL: The input contains less than 6 points" << std::endl;
         return false;
     } else if (points_3d.size() != points_2d.size()) {
+        // 3D and 2D calibration points count do not match
         std::cout << "Input Validation FAIL: The sizes of the 2D/3D points do not match" << std::endl;
         return false;
     } else {
+        // Everything all right
         std::cout << "Input Validation PASS." << std::endl;
     }
 
@@ -74,7 +78,7 @@ bool CameraCalibration::calibration(
     // arr will contain the values of the P matrix in a one-dimensional array. The length of this array is 2*n*12
     std::vector<double> arr;
 
-    // Points P, u, and v.
+    // Points P (3D) and u and v (2D).
     vec3 pt3;
     vec2 pt2;
 
@@ -90,28 +94,28 @@ bool CameraCalibration::calibration(
 
         // First constraint row: [P^T 0^T -u*P^T]
         pt3 = points_3d_[i];
-        arr.push_back(0);
+        arr.push_back(1); // P^T has to be 4 dimensional (1x4), so add a 1.
         arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
 
         arr.insert(arr.end(), 4, 0); // insert 0-vector
 
         pt3 = - pt2.x * points_3d_[i];
-        arr.push_back(0);
+        arr.push_back( - pt2.x );
         arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
 
         // Second constraint row: [0^T P^T -v*P^T]
         arr.insert(arr.end(), 4, 0); // insert 0-vector
 
         pt3 = points_3d_[i];
-        arr.push_back(0);
+        arr.push_back(1); // P^T has to be 4 dimensional (1x4), so add a 1.
         arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
 
         pt3 = - pt2.y * points_3d_[i];
-        arr.push_back(0);
+        arr.push_back( - pt2.y );
         arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
     }
 
-    // Create Matrix P
+    // Create Matrix P of size (mxn = 2*n_points x 12)
     const int m = 2 * points_3d.size();
     const int n = 12;
 
@@ -125,10 +129,14 @@ bool CameraCalibration::calibration(
     Matrix<double> S(m, n, 0.0);   // initialized with 0s
     Matrix<double> V(n, n, 0.0);   // initialized with 0s
 
-    // Single Value Decomposition
+    // Single Value Decomposition into U, S, and V
     svd_decompose(P, U, S, V);
 
-    // TODO: Remove checks
+    // We get m by taking the last column of V.
+    const auto mvec = V.get_column(n - 1);
+
+    // Remove checks
+    /*
     // Check 1: U is orthogonal, so U * U^T must be identity
     std::cout << "U*U^T: \n" << U * transpose(U) << std::endl;
     // Check 2: V is orthogonal, so V * V^T must be identity
@@ -137,15 +145,20 @@ bool CameraCalibration::calibration(
     std::cout << "S: \n" << S << std::endl;
     // Check 4: according to the definition, A = U * S * V^T
     std::cout << "M - U * S * V^T: \n" << P - U * S * transpose(V) << std::endl;
+    */
 
-    // Define a 5 by 5 square matrix and compute its inverse.
-    Matrix<double> B(12, 12, arr.data());    // Here I use part of the above array to initialize B
-    // Compute its inverse
-    Matrix<double> invB(12, 12);
+
+
+    // Define a 12 by 12 square matrix and compute its inverse.
+    /*
+    Matrix<double> B(n, n, arr.data());
+    Matrix<double> invB(n, n);
     inverse(B, invB);
+
+    std::cout << "Inverse Matrix B " << B << std::endl;
     // Let's check if the inverse is correct
     std::cout << "B * invB: \n" << B * invB << std::endl;
-
+    */
 
 
     // TODO: extract intrinsic parameters from M.
@@ -216,9 +229,9 @@ bool CameraCalibration::calibration(
     //Matrix<double> B(5, 5, array.data());    // Here I use part of the above array to initialize B
     // Compute its inverse
     //Matrix<double> invB(5, 5);
-    inverse(B, invB);
+    //inverse(B, invB);
     // Let's check if the inverse is correct
-    std::cout << "B * invB: \n" << B * invB << std::endl;
+    //std::cout << "B * invB: \n" << B * invB << std::endl;
 
     return false;
     // TODO: delete the above code in you final submission (which are just examples).
