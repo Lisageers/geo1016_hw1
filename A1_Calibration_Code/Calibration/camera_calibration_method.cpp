@@ -95,24 +95,24 @@ bool CameraCalibration::calibration(
         // First constraint row: [P^T 0^T -u*P^T]
         pt3 = points_3d_[i];
         arr.push_back(1); // P^T has to be 4 dimensional (1x4), so add a 1.
-        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3); // Now add the 3D coordinates of P
 
         arr.insert(arr.end(), 4, 0); // insert 0-vector
 
         pt3 = - pt2.x * points_3d_[i];
         arr.push_back( - pt2.x );
-        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3); // Add the 3D coordinates of P
 
         // Second constraint row: [0^T P^T -v*P^T]
         arr.insert(arr.end(), 4, 0); // insert 0-vector
 
         pt3 = points_3d_[i];
         arr.push_back(1); // P^T has to be 4 dimensional (1x4), so add a 1.
-        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3); // Now add the 3D coordinates of P
 
         pt3 = - pt2.y * points_3d_[i];
         arr.push_back( - pt2.y );
-        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3); // Add the 3D coordinates of P
     }
 
     // Create Matrix P of size (mxn = 2*n_points x 12)
