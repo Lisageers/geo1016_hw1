@@ -167,7 +167,7 @@ bool CameraCalibration::calibration(
     Matrix<double> V(n, n, 0.0);   // initialized with 0s
 
     // Compute the SVD decomposition of A
-    svd_decompose(A, U, S, V);
+    //svd_decompose(A, U, S, V);
 
     // Now let's check if the SVD result is correct
 
@@ -181,7 +181,7 @@ bool CameraCalibration::calibration(
     std::cout << "S: \n" << S << std::endl;
 
     // Check 4: according to the definition, A = U * S * V^T
-    std::cout << "M - U * S * V^T: \n" << A - U * S * transpose(V) << std::endl;
+    //std::cout << "M - U * S * V^T: \n" << A - U * S * transpose(V) << std::endl;
 
     // Define a 5 by 5 square matrix and compute its inverse.
     Matrix<double> B(5, 5, array.data());    // Here I use part of the above array to initialize B
