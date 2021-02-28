@@ -1,8 +1,8 @@
-# Install script for directory: /Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core
+# Install script for directory: C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/A1_Calibration_Code")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

@@ -46,7 +46,7 @@ GL/glew.h
 windows.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/3rd_party/glew/src/glew.c
+C:/dev/geo1016_hw1/A1_Calibration_Code/3rd_party/glew/src/glew.c
 GL/glew.h
 -
 GL/osmesa.h

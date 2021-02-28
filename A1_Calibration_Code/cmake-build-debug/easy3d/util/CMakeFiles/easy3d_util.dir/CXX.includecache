@@ -234,7 +234,7 @@ unordered_map
 easy3d/util/chrono_watch.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/chrono_watch.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/chrono_watch.cpp
 easy3d/util/chrono_watch.h
 -
 cassert
@@ -248,7 +248,7 @@ iomanip
 easy3d/core/types.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/dialogs.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/dialogs.cpp
 easy3d/util/dialogs.h
 -
 easy3d/util/file_system.h
@@ -256,7 +256,7 @@ easy3d/util/file_system.h
 3rd_party/portable_file_dialogs/portable_file_dialogs.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/file_system.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/file_system.cpp
 easy3d/util/file_system.h
 -
 easy3d/util/string.h
@@ -300,7 +300,7 @@ libgen.h
 libproc.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/stop_watch.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/stop_watch.cpp
 easy3d/util/stop_watch.h
 -
 cmath
@@ -314,7 +314,7 @@ easy3d/core/types.h
 Windows.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/string.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/string.cpp
 easy3d/util/string.h
 -
 algorithm
@@ -324,7 +324,7 @@ cstdarg
 iostream
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/util/threading.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/util/threading.cpp
 easy3d/util/threading.h
 -
 easy3d/util/logging.h

@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/graph.cpp" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/graph.cpp.o"
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/kdtree.cpp" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/kdtree.cpp.o"
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/manifold_builder.cpp" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/manifold_builder.cpp.o"
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/point_cloud.cpp" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/point_cloud.cpp.o"
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/surface_mesh.cpp" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/surface_mesh.cpp.o"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/graph.cpp" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/graph.cpp.obj"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/kdtree.cpp" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/kdtree.cpp.obj"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/manifold_builder.cpp" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/manifold_builder.cpp.obj"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/point_cloud.cpp" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/point_cloud.cpp.obj"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/surface_mesh.cpp" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/core/CMakeFiles/easy3d_core.dir/surface_mesh.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
@@ -22,8 +22,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/easy3d/util/CMakeFiles/easy3d_util.dir/DependInfo.cmake"
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/CMakeFiles/3rd_glog.dir/DependInfo.cmake"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/easy3d/util/CMakeFiles/easy3d_util.dir/DependInfo.cmake"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/CMakeFiles/3rd_glog.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

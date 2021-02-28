@@ -1,8 +1,8 @@
-# Install script for directory: /Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/3rd_party
+# Install script for directory: C:/dev/geo1016_hw1/A1_Calibration_Code/3rd_party
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/A1_Calibration_Code")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,9 +34,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/3rd_party/glew/cmake_install.cmake")
-  include("/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/3rd_party/glfw/cmake_install.cmake")
-  include("/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/cmake_install.cmake")
+  include("C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/3rd_party/glew/cmake_install.cmake")
+  include("C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/3rd_party/glfw/cmake_install.cmake")
+  include("C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/cmake_install.cmake")
 
 endif()
 

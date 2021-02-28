@@ -226,13 +226,13 @@ unordered_map
 easy3d/core/types.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/graph.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/graph.cpp
 easy3d/core/graph.h
 -
 cmath
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/kdtree.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/kdtree.cpp
 easy3d/core/kdtree.h
 -
 easy3d/core/point_cloud.h
@@ -240,19 +240,19 @@ easy3d/core/point_cloud.h
 nanoflann/nanoflann.hpp
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/manifold_builder.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/manifold_builder.cpp
 easy3d/core/manifold_builder.h
 -
 easy3d/util/logging.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/point_cloud.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/point_cloud.cpp
 easy3d/core/point_cloud.h
 -
 cmath
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/core/surface_mesh.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/core/surface_mesh.cpp
 easy3d/core/surface_mesh.h
 -
 easy3d/util/logging.h

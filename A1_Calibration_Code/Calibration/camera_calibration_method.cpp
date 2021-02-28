@@ -58,8 +58,62 @@ bool CameraCalibration::calibration(
     std::cout << "TODO: After implementing the calibration() function, I will disable all unrelated output ...\n\n";
 
     // TODO: check if input is valid (e.g., number of correspondences >= 6, sizes of 2D/3D points must match)
+    // DV: DONE
+    if (points_3d.size() < 6) {
+        std::cout << "Input Validation FAIL: The input contains less than 6 points" << std::endl;
+        return false;
+    } else if (points_3d.size() != points_2d.size()) {
+        std::cout << "Input Validation FAIL: The sizes of the 2D/3D points do not match" << std::endl;
+        return false;
+    } else {
+        std::cout << "Input Validation PASS." << std::endl;
+    }
 
     // TODO: construct the P matrix (so P * m = 0).
+    std::vector<double> arr;
+    vec3 pt3;
+    vec2 pt2;
+
+    for (size_t i = 0; i < points_3d.size(); ++i) {
+        //For every point in the input points list
+
+        // The u_i and v_i 2D-coordinates will be stored in vec2 pt2 and can be accessed by pt2.x and pt2.y
+        pt2 = points_2d_[i];
+
+        // The 3D-coordinates are stored in vec3 pt3 and can be accessed by pt3.x, pt3.y, and pt3.z
+        // To insert the 3D-coordinates into the one-dimensional STL array, the values are accessed with from pt3.data()
+        // to pt3.data() + pt3.size() (which is always 3).
+
+        // First constraint row: [P^T 0^T -u*P^T]
+        pt3 = points_3d_[i];
+        arr.push_back(0);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+
+        arr.insert(arr.end(), 4, 0); // insert 0-vector
+
+        pt3 = - pt2.x * points_3d_[i];
+        arr.push_back(0);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+
+        // Second constraint row: [0^T P^T -v*P^T]
+        arr.insert(arr.end(), 4, 0); // insert 0-vector
+
+        pt3 = points_3d_[i];
+        arr.push_back(0);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+
+        pt3 = - pt2.y * points_3d_[i];
+        arr.push_back(0);
+        arr.insert(arr.end(), pt3.data(), pt3.data() + 3);
+    }
+
+    // Create Matrix M
+
+    const int m = 2 * points_3d.size();
+    const int n = 12;
+
+    Matrix<double> P(m, n, arr.data());
+    std::cout << "Constructed Matrix P: " << P << std::endl;
 
     // TODO: solve for M (the whole projection matrix, i.e., M = K * [R, t]) using SVD decomposition.
     //   Optional: you can check if your M is correct by applying M on the 3D points. If correct, the projected point
@@ -104,9 +158,9 @@ bool CameraCalibration::calibration(
 
     // Define an m-by-n double valued matrix.
     // Here I use the above array to initialize it. You can also use A(i, j) to initialize/modify/access its elements.
-    const int m = 6, n = 5;
-    Matrix<double> A(m, n, array.data());    // 'array.data()' returns a pointer to the array.
-    std::cout << "M: \n" << A << std::endl;
+    //const int m = 6, n = 5;
+    //Matrix<double> A(m, n, array.data());    // 'array.data()' returns a pointer to the array.
+    //std::cout << "M: \n" << A << std::endl;
 
     Matrix<double> U(m, m, 0.0);   // initialized with 0s
     Matrix<double> S(m, n, 0.0);   // initialized with 0s

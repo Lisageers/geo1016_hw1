@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/3rd_party/glog/logging.cc" "/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/CMakeFiles/3rd_glog.dir/logging.cc.o"
+  "C:/dev/geo1016_hw1/A1_Calibration_Code/3rd_party/glog/logging.cc" "C:/dev/geo1016_hw1/A1_Calibration_Code/cmake-build-debug/3rd_party/glog/CMakeFiles/3rd_glog.dir/logging.cc.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

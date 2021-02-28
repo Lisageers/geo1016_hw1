@@ -292,7 +292,7 @@ unordered_map
 easy3d/core/types.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/fileio/image_io.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/fileio/image_io.cpp
 easy3d/fileio/image_io.h
 -
 iostream
@@ -306,13 +306,13 @@ easy3d/util/logging.h
 3rd_party/stb/stb_image_write.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/fileio/resources.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/fileio/resources.cpp
 easy3d/fileio/resources.h
 -
 easy3d/util/file_system.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/fileio/surface_mesh_io.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/fileio/surface_mesh_io.cpp
 easy3d/fileio/surface_mesh_io.h
 -
 clocale
@@ -326,7 +326,7 @@ easy3d/util/stop_watch.h
 easy3d/util/logging.h
 -
 
-/Users/Vince/Documents/Geo1016/A1_Calibration/A1_Calibration_Code/easy3d/fileio/surface_mesh_io_obj.cpp
+C:/dev/geo1016_hw1/A1_Calibration_Code/easy3d/fileio/surface_mesh_io_obj.cpp
 easy3d/fileio/surface_mesh_io.h
 -
 unordered_map
