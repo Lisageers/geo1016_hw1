@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Folders
+/A1_Calibration_Code/cmake-build-debug
+/A1_Calibration_Code/.idea
