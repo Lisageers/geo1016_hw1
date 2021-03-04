@@ -26,6 +26,8 @@
 #include "matrix_algo.h"
 //#include <Eigen/Eigen>
 //#include <Eigen/Dense>
+#include <math.h>
+#include <cmath>
 
 using namespace easy3d;
 
@@ -44,6 +46,36 @@ using namespace easy3d;
  *           - R:         the 3x3 rotation matrix encoding camera orientation.
  *           - t:         a 3D vector encoding camera location.
  */
+double dot_product(std::vector<double> v0, std::vector<double> v1)
+{
+    if (v0.size() != 3 or v1.size() != 3)
+    {
+        std::cout << "Dot product not possible";
+        return 1;
+    }
+    return (v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2]);
+}
+
+std::vector<double> cross_product(std::vector<double> v0, std::vector<double> v1)
+{
+    double vx = v0[1] * v1[2] - v0[2] * v1[1];
+    double vy = v0[2] * v1[0] - v0[0] * v1[2];
+    double vz = v0[0] * v1[1] - v0[1] * v1[0];
+    return std::vector<double> {vx, vy, vz};
+}
+
+
+double vector_norm(std::vector<double> v)
+{
+    if (v.size() != 3)
+    {
+        std::cout << "Vector norm not possible";
+        return 1;
+    }
+    return sqrt(pow(abs(v[0]), 2) + pow(abs(v[1]), 2)+ pow(abs(v[2]), 2));
+}
+
+
 bool CameraCalibration::calibration(
         const std::vector<vec3>& points_3d,
         const std::vector<vec2>& points_2d,
@@ -145,32 +177,24 @@ bool CameraCalibration::calibration(
     //auto QR = mat.householderQr()
 
     // Remove checks
-    /*
-    // Check 1: U is orthogonal, so U * U^T must be identity
-    std::cout << "U*U^T: \n" << U * transpose(U) << std::endl;
-    // Check 2: V is orthogonal, so V * V^T must be identity
-    std::cout << "V*V^T: \n" << V * transpose(V) << std::endl;
-    // Check 3: S must be a diagonal matrix
-    std::cout << "S: \n" << S << std::endl;
-    // Check 4: according to the definition, A = U * S * V^T
-    std::cout << "M - U * S * V^T: \n" << P - U * S * transpose(V) << std::endl;
-    */
 
 
-
-    // Define a 12 by 12 square matrix and compute its inverse.
-    /*
-    Matrix<double> B(n, n, arr.data());
-    Matrix<double> invB(n, n);
-    inverse(B, invB);
-
-    std::cout << "Inverse Matrix B " << B << std::endl;
-    // Let's check if the inverse is correct
-    std::cout << "B * invB: \n" << B * invB << std::endl;
-    */
 
 
     // TODO: extract intrinsic parameters from M.
+    // split m into A and b
+    std::vector<double> a1{M[0][0], M[0][1], M[0][2]};
+    std::vector<double> a2{M[1][0], M[1][1], M[1][2]};
+    std::vector<double> a3{M[2][0], M[2][1], M[2][2]};
+    std::vector<double> b{M[0][3], M[1][3], M[2][3]};
+
+    // calculate intrinsic parameters
+    double rho = 1 / vector_norm(a3);
+    cx = pow(rho, 2) * dot_product(a1, a3);
+    cy = pow(rho, 2) * dot_product(a2, a3);
+    double theta = acos(-(dot_product(cross_product(a1, a3), cross_product(a2, a3)) / (vector_norm(cross_product(a1,a3)) * vector_norm(cross_product(a2,a3)))));
+    double alpha = pow(rho, 2) * vector_norm(cross_product(a1,a3)) * sin(theta);
+    double beta = pow(rho, 2) * vector_norm(cross_product(a2,a3)) * sin(theta);
 
     // TODO: extract extrinsic parameters from M.
 
@@ -198,14 +222,14 @@ bool CameraCalibration::calibration(
     // length. With 'std::vector', you can do append/delete/insert elements, and much more. The 'std::vector' can store
     // not only 'double', but also any other types of objects. In case you may want to learn more about 'std::vector'
     // check here: https://en.cppreference.com/w/cpp/container/vector
-    std::vector<double> array = {1, 3, 3, 4, 7, 6, 2, 8, 2, 8, 3, 2, 4, 9, 1, 7, 3, 23, 2, 3, 5, 2, 1, 5, 8, 9, 22};
-    array.push_back(5); // append 5 to the array (so the size will increase by 1).
-    array.insert(array.end(), 10, 3);  // append ten 3 (so the size will grow by 10).
-
-    // To access its values
-    for (int i=0; i<array.size(); ++i)
-        std::cout << array[i] << " ";  // use 'array[i]' to access its i-th element.
-    std::cout << std::endl;
+//    std::vector<double> array = {1, 3, 3, 4, 7, 6, 2, 8, 2, 8, 3, 2, 4, 9, 1, 7, 3, 23, 2, 3, 5, 2, 1, 5, 8, 9, 22};
+//    array.push_back(5); // append 5 to the array (so the size will increase by 1).
+//    array.insert(array.end(), 10, 3);  // append ten 3 (so the size will grow by 10).
+//
+//    // To access its values
+//    for (int i=0; i<array.size(); ++i)
+//        std::cout << array[i] << " ";  // use 'array[i]' to access its i-th element.
+//    std::cout << std::endl;
 
     // Define an m-by-n double valued matrix.
     // Here I use the above array to initialize it. You can also use A(i, j) to initialize/modify/access its elements.
@@ -223,13 +247,13 @@ bool CameraCalibration::calibration(
     // Now let's check if the SVD result is correct
 
     // Check 1: U is orthogonal, so U * U^T must be identity
-    std::cout << "U*U^T: \n" << U * transpose(U) << std::endl;
-
-    // Check 2: V is orthogonal, so V * V^T must be identity
-    std::cout << "V*V^T: \n" << V * transpose(V) << std::endl;
-
-    // Check 3: S must be a diagonal matrix
-    std::cout << "S: \n" << S << std::endl;
+//    std::cout << "U*U^T: \n" << U * transpose(U) << std::endl;
+//
+//    // Check 2: V is orthogonal, so V * V^T must be identity
+//    std::cout << "V*V^T: \n" << V * transpose(V) << std::endl;
+//
+//    // Check 3: S must be a diagonal matrix
+//    std::cout << "S: \n" << S << std::endl;
 
     // Check 4: according to the definition, A = U * S * V^T
     //std::cout << "M - U * S * V^T: \n" << A - U * S * transpose(V) << std::endl;
@@ -246,20 +270,3 @@ bool CameraCalibration::calibration(
     // TODO: delete the above code in you final submission (which are just examples).
 #endif
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
