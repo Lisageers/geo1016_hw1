@@ -64,7 +64,6 @@ std::vector<double> cross_product(std::vector<double> v0, std::vector<double> v1
     return std::vector<double> {vx, vy, vz};
 }
 
-
 double vector_norm(std::vector<double> v)
 {
     if (v.size() != 3)
@@ -103,9 +102,7 @@ bool CameraCalibration::calibration(
         std::cout << "Input Validation PASS." << std::endl;
     }
 
-
     // construct the P matrix
-
     // arr will contain the values of the P matrix in a one-dimensional array. The length of this array is 2*n*12
     std::vector<double> arr;
 
@@ -168,7 +165,6 @@ bool CameraCalibration::calibration(
     Matrix<double> M(3, 4, mvec.data());
     std::cout << "M " << M << std::endl;
 
-
     // extract intrinsic parameters from M.
     // split m into A and b
     std::vector<double> a1{M[0][0], M[0][1], M[0][2]};
@@ -184,34 +180,26 @@ bool CameraCalibration::calibration(
     fx = pow(rho, 2) * vector_norm(cross_product(a1,a3)) * sin(theta);
     fy = pow(rho, 2) * vector_norm(cross_product(a2,a3)) * sin(theta);
 
-
     // extract extrinsic parameters from M.
     // Use the a and b vectors from intrinsic parameter calculation above
-    // Calculate extrinsic parameter R
-    skew = -fx * (1 / tan(theta));
-
+    // Calculate extrinsic parameters, R matrix's constituent parts, r1, r2, and r3
     std::vector<double> r_1 = cross_product(a2, a3) / vector_norm(cross_product(a2, a3));
     std::vector<double> r_3 = rho * a3;
     std::vector<double> r_2 = cross_product(r_3, r_1);
-    // Must now calculate extrinsic parameter t
-    // t = rho * K^-1 * b
-    // Intrinsic Matrix K is needed.
-    // Following method of constructing a matrix, does not seem to work... :
-    //    Matrix<double> K = {
-    //        { alpha, skew, cx },
-    //        { 0, beta, cy },
-    //        { 0, 0, 1 }
-    //    };
 
-    // Define matrix K
+    // Must now calculate extrinsic parameter t, where t = rho * K^-1 * b
+    // Intrinsic Matrix K is needed. And for K, skew is needed:
+    skew = -fx * (1 / tan(theta));
+
+    // Define matrix K and make array of what belongs in K:
     std::vector<double> K_array = {fx, skew, cx, 0, fy, cy, 0, 0, 1};
     Matrix<double> K(3, 3, K_array.data());
     std::cout << "K: \n" << K << std::endl;
 
-    // Compute matrix K's inverse, invK
+    // Compute matrix K's inverse, invK:
     Matrix<double> invK(3, 3);
     inverse(K, invK);
-    // Check to see if inverse is correct
+    // Check to see if inverse is correct:
     std::cout << "K * invK: \n" << K * invK << std::endl;
 
     std::vector<double> vector_t = rho * invK * b;
