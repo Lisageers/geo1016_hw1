@@ -27,11 +27,8 @@
 //#include <Eigen/Eigen>
 //#include <Eigen/Dense>
 #include <math.h>
-#include <cmath>
 
 using namespace easy3d;
-
-
 
 /**
  * TODO: Finish this function for calibrating a camera from the corresponding 3D-2D point pairs.
@@ -46,6 +43,7 @@ using namespace easy3d;
  *           - R:         the 3x3 rotation matrix encoding camera orientation.
  *           - t:         a 3D vector encoding camera location.
  */
+
 double dot_product(std::vector<double> v0, std::vector<double> v1)
 {
     if (v0.size() != 3 or v1.size() != 3)
@@ -181,14 +179,28 @@ bool CameraCalibration::calibration(
     fy = pow(rho, 2) * vector_norm(cross_product(a2,a3)) * sin(theta);
 
     // extract extrinsic parameters from M.
-    // Use the a and b vectors from intrinsic parameter calculation above
-    // Calculate extrinsic parameters, R matrix's constituent parts, r1, r2, and r3
+    // Use the A and b vectors from intrinsic parameter calculation above
+    // Calculate extrinsic parameters. First R matrix's constituent parts, r1, r2, and r3:
     std::vector<double> r_1 = cross_product(a2, a3) / vector_norm(cross_product(a2, a3));
     std::vector<double> r_3 = rho * a3;
     std::vector<double> r_2 = cross_product(r_3, r_1);
+    // Fill matrix R (defined at start of code) with constituent parts
+    R(0, 0) = r_1[0];
+    R(0, 1) = r_1[1];
+    R(0, 2) = r_1[2];
+
+    R(1, 0) = r_2[0];
+    R(1, 1) = r_2[1];
+    R(1, 2) = r_2[2];
+
+    R(2, 0) = r_3[0];
+    R(2, 1) = r_3[1];
+    R(2, 2) = r_3[2];
+    // print matrix R
+    std::cout << "R: \n" << R << std::endl;
 
     // Must now calculate extrinsic parameter t, where t = rho * K^-1 * b
-    // Intrinsic Matrix K is needed. And for K, skew is needed:
+    // Intrinsic Matrix K is needed. And for K, skew is needed, where skew = cot(theta):
     skew = -fx * (1 / tan(theta));
 
     // Define matrix K and make array of what belongs in K:
@@ -202,7 +214,17 @@ bool CameraCalibration::calibration(
     // Check to see if inverse is correct:
     std::cout << "K * invK: \n" << K * invK << std::endl;
 
-    std::vector<double> vector_t = rho * invK * b;
+    // Calculate t vector with rho, inverse of matrix K, and b
+    Matrix<double> T(3, 1);
+    Matrix<double> B(3, 1,
+        std::vector<double> {M(0, 3), M(1, 3), M(2, 3)}.data());
+    T = (rho * invK * B);
+    t = {float(T[0][0]), float(T[1][0]), float(T[2][0])};
+
+    // Print extrinsic parameters:
+    std::cout << "Extrinsic parameters: \n"
+        << "R: \n" << R
+        << "T: \n" << t;
 
     return false;
 
